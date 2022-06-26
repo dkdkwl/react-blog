@@ -8,6 +8,9 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal,setModal] = useState(false);
   let [title,setTitle] = useState(0);
+  let [입력값,입력값변경] = useState('');
+
+
 
   return (
     <div className="App">
@@ -26,7 +29,12 @@ function App() {
               따봉변경(copy)
             }}>{따봉[i]}</span>
             </h4>
-            <p>2월 18일 발행</p>
+            <p></p>
+            <button onClick={(e)=>{
+              let copy = [...글제목];
+              copy.splice(i, 1);
+              글제목변경(copy)
+            }}>삭제</button>
           </div>
           )
         })
@@ -36,7 +44,22 @@ function App() {
       <button onClick={()=>{setTitle(1)}}>글제목1</button>
       <button onClick={()=>{setTitle(2)}}>글제목2</button>
 
-        
+      <input className='userInput' />
+      <button onClick={()=>{
+        let userData = document.querySelector('.userInput').value;
+        if(!userData == ''){
+          let copy = [...글제목];
+          copy.unshift(userData);
+          글제목변경(copy);
+          let copy2 = [...따봉];
+          copy2.unshift(0);
+          따봉변경(copy2);
+        }} 
+      }>
+        추가하기
+      </button>
+      <textarea/>
+
       {
         modal == true ? <Modal title = {title} 글제목변경={글제목변경} color={'coral'} 글제목={글제목}/> : null
       }
@@ -57,7 +80,6 @@ function Modal(props){
     </>
   )
 }
-
 
 
 export default App;
